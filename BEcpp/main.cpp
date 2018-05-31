@@ -3,6 +3,8 @@ sites de recherche
 https://www.arduino.cc/en/ArduinoCertified/IntelEdison
 http://iotdk.intel.com/docs/master/mraa/dir_1bbdfdabbe53a0e81c14e2e2208abfc8.html
 http://wiki.seeedstudio.com/Grove-125KHz_RFID_Reader/
+
+
 */
 
 #include <mraa/i2c.h>
@@ -12,7 +14,7 @@ http://wiki.seeedstudio.com/Grove-125KHz_RFID_Reader/
 #include <iostream>
 #include <string>
 #include "except.h"
-#include "buzzer.h"
+#include "BUZZER.H"
 #include "RFID.h"
 #include "tag_list.h"
 
@@ -41,31 +43,31 @@ uint8_t m_rgb_control_address=0x62;
 
 mraa_result_t i2cData (mraa_i2c_context ctx, uint8_t value) {
     mraa_result_t error = MRAA_SUCCESS;
-
+    
     uint8_t data[2] = { LCD_DATA, value };
     error = mraa_i2c_address (ctx, m_lcd_control_address);
     error = mraa_i2c_write (ctx, data, 2);
-
+    
     return error;
 }
 
 mraa_result_t i2Cmd (mraa_i2c_context ctx, uint8_t value) {
     mraa_result_t error = MRAA_SUCCESS;
-
+    
     uint8_t data[2] = { LCD_CMD, value };
     error = mraa_i2c_address (ctx, m_lcd_control_address);
     error = mraa_i2c_write (ctx, data, 2);
-
+    
     return error;
 }
 
 mraa_result_t i2cReg (mraa_i2c_context ctx, uint8_t deviceAdress, uint8_t addr, uint8_t value) {
     mraa_result_t error = MRAA_SUCCESS;
-
+    
     uint8_t data[2] = { addr, value };
     error = mraa_i2c_address (ctx, deviceAdress);
     error = mraa_i2c_write (ctx, data, 2);
-
+    
     return error;
 }
 
@@ -93,7 +95,7 @@ int main(){
 
     m_i2c_lcd_control = mraa_i2c_init(m_bus);
     mraa_i2c_address(m_i2c_lcd_control, m_lcd_control_address);
-
+    
 	m_i2c_lcd_rgb = mraa_i2c_init(m_bus);
 	mraa_i2c_address(m_i2c_lcd_rgb, m_rgb_control_address);
 
@@ -112,12 +114,12 @@ int main(){
 	i2cReg (m_i2c_lcd_rgb, m_rgb_control_address, 0, 0);
 	i2cReg (m_i2c_lcd_rgb, m_rgb_control_address, 1, 0);
 	i2cReg (m_i2c_lcd_rgb, m_rgb_control_address, 0x08, 0xAA);
-
+	
 	i2cReg (m_i2c_lcd_rgb, m_rgb_control_address, 0x04, 0);
 	i2cReg (m_i2c_lcd_rgb, m_rgb_control_address, 0x03, 0);
 	i2cReg (m_i2c_lcd_rgb, m_rgb_control_address, 0x02, 255);
 
-	// Ajout barbare des tags. A améliorer
+	// Ajout barbare des tags. A amÃ©liorer
 	tag[0] = '4';tag[1] = '2';tag[2] = '0';tag[3] = '0';
 	tag[4] = '5';tag[5] = 'F';tag[6] = 'D';tag[7] = '4';tag[8] = 'C';tag[9] = 'B';
 	tag[10] = '0';tag[11] = '2';
@@ -134,7 +136,7 @@ int main(){
 	tag[4] = '5';tag[5] = '2';tag[6] = 'D';tag[7] = '2';tag[8] = '5';tag[9] = 'E';
 	tag[10] = '7';tag[11] = '7';
 	maliste.addElement(tag);
-
+	
 	maliste.print();
 
 	while(1){
@@ -166,8 +168,11 @@ int main(){
 			i_len = mraa_uart_read(m_uart_RFID_Control, pc_buffer, 64);
 			pc_buffer[i_len] = '\0';
 			mraa_gpio_write(m_gpio, 1);
-			cout<<"Reception de "<<i_len<<" caractères : "<<pc_buffer<<endl;
+
+			cout<<"Reception de "<<i_len<<" caractÃ¨res : "<<pc_buffer<<endl;
 			cout<<"Start bit : "<<(int)pc_buffer[0]<<" | Stop bit : "<<(int)pc_buffer[i_len-1]<<endl;
+
 			sleep(2);
 			mraa_gpio_write(m_gpio, 0);
 */
+
