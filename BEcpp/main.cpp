@@ -12,7 +12,7 @@ http://wiki.seeedstudio.com/Grove-125KHz_RFID_Reader/
 #include <iostream>
 #include <string>
 #include "except.h"
-#include "BUZZER.H"
+#include "buzzer.h"
 #include "RFID.h"
 #include "tag_list.h"
 
